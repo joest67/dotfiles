@@ -27,10 +27,6 @@ if [ "$(uname)" = "Darwin" ]; then
 
 fi
 
-if [ "$(zsh)" != "/bin/bash" ]; then
-    chsh /bin/zsh
-fi
-
 # pip
 if ! which pip > /dev/null ;then
     curl -L https://bootstrap.pypa.io/get-pip.py | python
@@ -47,5 +43,10 @@ rm -rf $HOME/.zshrc
 rm -rf $HOME/.pip
 
 echo "link new config files"
-ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
+ln -sf $HOME/.dotfiles/.zshrc $HOME/.zshrc
 ln -sf $HOME/.dotfiles/.pip $HOME/.pip
+
+
+if [ "$(zsh)" != "/bin/bash" ]; then
+    chsh /bin/zsh
+fi
