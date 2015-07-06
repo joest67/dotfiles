@@ -27,6 +27,9 @@ if [ "$(uname)" = "Darwin" ]; then
 
 fi
 
+# oh-my-zsh
+. $HOME/.dotfiles/oh-my-zsh/tools/install.sh
+
 # pip
 if ! which pip > /dev/null ;then
     curl -L https://bootstrap.pypa.io/get-pip.py | python
