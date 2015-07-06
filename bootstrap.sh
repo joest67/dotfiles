@@ -27,6 +27,10 @@ if [ "$(uname)" = "Darwin" ]; then
 
 fi
 
+if [ "$(zsh)" != "/bin/bash" ]; then
+    chsh /bin/zsh
+fi
+
 # pip
 if ! which pip > /dev/null ;then
     curl -L https://bootstrap.pypa.io/get-pip.py | python
