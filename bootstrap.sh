@@ -7,7 +7,7 @@
 echo "Install useful software"
 
 if [ "$(uname)" = "Darwin" ]; then
-    if ! which brew > /dev/null ;then
+    if ! which brew > /dev/null; then
         ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
         brew doctor
     fi
@@ -17,15 +17,19 @@ if [ "$(uname)" = "Darwin" ]; then
         brew tap caskroom/versions
     fi
 
-    brew install \
-          vim    \
-          pyenv  \
-          zsh    \
-          byobu  \
+    brew install   \
+          vim      \
+          pyenv    \
+          zsh      \
+          byobu    \
           autojump \
           git-flow \
-
 fi
+
+if which apt-get > /dev/null; then
+    sudo apt-get autojump \
+fi
+
 
 # pip
 if ! which pip > /dev/null ;then
