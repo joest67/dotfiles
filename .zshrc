@@ -34,9 +34,10 @@ export LC_ALL="en_US.UTF-8"
 alias grep='grep --color'
 alias ll='ls -al'
 
-# git
-# see oh-my-zsh/plugins/git/git.plugin.zsh
-
+# used for auto completion
+# ref: http://michaelheap.com/enable-zsh-completion-for-hub/
+fpath=(~/.dotfiles/auto-completion $fpath)
+autoload -U compinit && compinit -u
 
 ##########################
 #       ssh agent        #
