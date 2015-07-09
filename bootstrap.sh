@@ -17,17 +17,19 @@ if [ "$(uname)" = "Darwin" ]; then
         brew tap caskroom/versions
     fi
 
-    brew install   \
-          vim      \
-          pyenv    \
-          zsh      \
-          byobu    \
-          autojump \
-          git-flow \
+
+brew install   \
+      vim      \
+      pyenv    \
+      zsh      \
+      byobu    \
+      autojump \
+      git-flow
+
 fi
 
 if which apt-get > /dev/null; then
-    sudo apt-get autojump \
+    sudo apt-get autojump
 fi
 
 
