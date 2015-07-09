@@ -6,6 +6,7 @@ ZSH_THEME="af-magic"
 plugins=(
     git
     git-flow
+    autojump
 )
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
