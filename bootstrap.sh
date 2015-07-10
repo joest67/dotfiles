@@ -29,7 +29,7 @@ brew install   \
 fi
 
 if which apt-get > /dev/null; then
-    sudo apt-get autojump
+    sudo apt-get autojump zsh
 fi
 
 
@@ -38,7 +38,7 @@ if ! which pip > /dev/null ;then
     curl -L https://bootstrap.pypa.io/get-pip.py | python
 fi
 
-pip install -U virtualenvwrapper
+sudo pip install -U virtualenvwrapper
 
 
 #################################
