@@ -1,22 +1,26 @@
 [user]
-	name = joest
-	email = chaojiong.zheng@gmail.com
+    name = joest
+    email = chaojiong.zheng@gmail.com
 [alias]
-        co = checkout
-        br = branch
-        st = status
-        unstage = reset HEAD --
-        ci = commit
-        last = log -1 HEAD
-        discard = checkout --
-        df = diff
-        ff = flow feature
-        ld = log -p
-        ldn = show --pretty="format:" --name-only
-    	lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    co = checkout
+    br = branch
+    st = status
+    unstage = reset HEAD --
+    ci = commit
+    last = log -1 HEAD
+    discard = checkout --
+    df = diff
+    ff = flow feature
+    ld = log -p
+    ldn = show --pretty="format:" --name-only
+    lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 [core]
-	excludesfile = /Users/joest/.gitignore_global
+    excludesfile = /Users/joest/.gitignore_global
 [push]
-	default = matching
+    default = matching
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
+[core]
+    excludesfile = /Users/joest/.gitignore_global
+[gitflow]
+    origin = upstream
