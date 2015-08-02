@@ -10,6 +10,13 @@ plugins=(
 )
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# pip install --user
+LOCAL_PIP=$HOME/Library/Python/2.7/bin
+if [ -d $LOCAL_PIP ]; then
+    export PATH=$HOME/Library/Python/2.7/bin:$PATH
+fi
+
 source $ZSH/oh-my-zsh.sh
 
 ########################
@@ -27,7 +34,6 @@ export LC_ALL="en_US.UTF-8"
 # virtualwrapper
     export WORKON_HOME=~/Envs
     source /usr/local/bin/virtualenvwrapper.sh
-
 
 ##########################
 #       alias            #
