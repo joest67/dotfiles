@@ -40,6 +40,7 @@ export LC_ALL="en_US.UTF-8"
 ##########################
 alias grep='grep --color'
 alias ll='ls -al'
+alias glast='git log -n 1 --format=%H |tr -d "\n"'
 
 # used for auto completion
 # ref: http://michaelheap.com/enable-zsh-completion-for-hub/
