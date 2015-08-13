@@ -52,10 +52,7 @@ echo "link new config files"
 ln -sf $HOME/.dotfiles/.zshrc $HOME/.zshrc
 ln -sf $HOME/.dotfiles/.pip $HOME/.pip
 ln -sf $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
-<<<<<<< HEAD
 ln -sf $HOME/.dotfiles/.byobu $HOME/.byobu
-=======
->>>>>>> upstream/master
 
 
 if [ "$(zsh)" != "/bin/bash" ]; then
