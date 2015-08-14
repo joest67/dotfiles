@@ -9,7 +9,7 @@ plugins=(
     autojump
 )
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/.dotfiles/bin:/usr/local/bin:$PATH
 
 # pip install --user
 LOCAL_PIP=$HOME/Library/Python/2.7/bin
