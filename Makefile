@@ -12,7 +12,7 @@ submodule_update:
 	git submodule update
 
 repo_update:
-	git checkout master && git fetch && git rebase origin/master
+	git checkout master && git fetch && git rebase upstream/master
 
 update: repo_update
 	bash rc_update.sh
