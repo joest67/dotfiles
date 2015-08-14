@@ -8,4 +8,4 @@ if [ -e $HOME/.dotfiles ]; then
 fi
 
 echo "Clone new dot files ..."
-/usr/bin/env git clone git@github.com:joest67/dotfiles.git ~/.dotfiles || exit 1
+/usr/bin/env git clone git@github.com:joest67/dotfiles.git -o upstream ~/.dotfiles || exit 1
