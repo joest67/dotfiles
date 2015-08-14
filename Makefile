@@ -11,8 +11,11 @@ submodule_init:
 submodule_update:
 	git submodule update
 
-update: submodule_update
+repo_update:
 	git checkout master && git fetch && git rebase origin/master
+
+update: repo_update
+	bash rc_update.sh
 
 install: submodule_init
 	bash bootstrap.sh
