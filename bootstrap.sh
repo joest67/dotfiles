@@ -41,20 +41,6 @@ fi
 sudo pip install -U virtualenvwrapper
 
 
-#################################
-#    Use constom config files   #
-#################################
-echo "remove original config files"
-rm -rf $HOME/.zshrc
-rm -rf $HOME/.pip
-
-echo "link new config files"
-ln -sf $HOME/.dotfiles/.zshrc $HOME/.zshrc
-ln -sf $HOME/.dotfiles/.pip $HOME/.pip
-ln -sf $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
-ln -sf $HOME/.dotfiles/.byobu $HOME/.byobu
-
-
 if [ "$(zsh)" != "/bin/bash" ]; then
     chsh /bin/zsh
 fi
