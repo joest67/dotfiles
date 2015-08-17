@@ -21,7 +21,7 @@
     default = matching
 [credential]
     helper = osxkeychain
-[core]
-    excludesfile = /Users/joest/.gitignore_global
 [gitflow]
     origin = upstream
+[rerere]
+    enabled = 1
