@@ -23,3 +23,5 @@
 	default = matching
 [credential]
 	helper = osxkeychain
+[rerere]
+	enabled = 1
