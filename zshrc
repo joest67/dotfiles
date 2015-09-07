@@ -73,5 +73,7 @@ fi
 #       functions        #
 ##########################
 ssh-copy-id (){
+    ssh $1 "mkdir -p .ssh"
     ssh $1 "echo `cat .ssh/id_rsa.pub` >> ~/.ssh/authorized_keys"
+    ssh $1 "chmod 700 .ssh; chmod 640 .ssh/authorized_keys"
 }
