@@ -1,6 +1,6 @@
 [user]
-	name = joest
-	email = chaojiong.zheng@gmail.com
+    name = joest
+    email = chaojiong.zheng@gmail.com
 [alias]
     co = checkout
     br = branch
@@ -15,13 +15,13 @@
     ld = log -p
     ldn = show --pretty="format:" --name-only
     lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-[gitflow]
-	origin = upstream
 [core]
-	excludesfile = ~/.gitignore_global
+    excludesfile = /Users/joest/.gitignore_global
 [push]
-	default = matching
+    default = matching
 [credential]
-	helper = osxkeychain
+    helper = osxkeychain
+[gitflow]
+    origin = upstream
 [rerere]
-	enabled = 1
+    enabled = 1
