@@ -1,6 +1,7 @@
 [user]
     name = joest
     email = chaojiong.zheng@gmail.com
+	signingkey = 96E70E64
 [alias]
     co = checkout
     br = branch
@@ -25,3 +26,7 @@
     origin = upstream
 [rerere]
     enabled = 1
+[commit]
+	gpgsign = true
+[https]
+	proxy = socks5://127.0.0.1:1080
