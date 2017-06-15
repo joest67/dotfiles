@@ -16,9 +16,10 @@ LOCAL_PIP=$HOME/Library/Python/2.7/bin
 if [ -d $LOCAL_PIP ]; then
     export PATH=$HOME/Library/Python/2.7/bin:$PATH
 fi
+export PATH="/usr/local/opt/gpg-agent/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
-source /usr/local/Cellar/zsh-syntax-highlighting/0.4.1/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/Cellar/zsh-syntax-highlighting/0.5.0/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ########################
 #     system env       #
@@ -94,3 +95,5 @@ ssh-copy-id (){
     ssh $1 "chmod 700 .ssh; chmod 640 .ssh/authorized_keys"
 }
 export GOPATH=$HOME/gocode
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

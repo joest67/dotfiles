@@ -24,7 +24,9 @@ brew install   \
       zsh      \
       byobu    \
       autojump \
-      git-flow
+      git-flow \
+      zsh-syntax-highlighting \
+      fzf
 
 fi
 
