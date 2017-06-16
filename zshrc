@@ -48,6 +48,7 @@ alias ll='ls -al'
 alias glast='git log -n 1 --format=%H |tr -d "\n"'
 alias tnew='tmux new'
 alias c=code
+alias vi=vim
 
 # used for auto completion
 # ref: http://michaelheap.com/enable-zsh-completion-for-hub/

@@ -27,7 +27,8 @@ brew install   \
       git-flow \
       zsh-syntax-highlighting \
       fzf \
-      tig
+      tig \
+      reattach-to-user-namespace
 
 fi
 
