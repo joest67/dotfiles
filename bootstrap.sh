@@ -26,7 +26,8 @@ brew install   \
       autojump \
       git-flow \
       zsh-syntax-highlighting \
-      fzf
+      fzf \
+      tig
 
 fi
 
