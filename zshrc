@@ -5,8 +5,11 @@ ZSH_THEME="joest-timestamp"
 
 plugins=(
     git
+    git-extras
+    gitignore
     git-flow
     autojump
+    mvn
 )
 
 export PATH=$HOME/.dotfiles/bin:/usr/local/bin:/usr/local/sbin/:$PATH
@@ -30,6 +33,8 @@ export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
 export HOMEBREW_GITHUB_API_TOKEN='ec63ccbf280c52ce571e2766bf0ce4ec96478ecb'
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home"
+export M2_HOME="/usr/local/Cellar/maven/3.5.0/libexec"
 
 
 ##########################
@@ -49,6 +54,9 @@ alias glast='git log -n 1 --format=%H |tr -d "\n"'
 alias tnew='tmux new'
 alias c=code
 alias vi=vim
+alias ip="curl ipinfo.io/ip"
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias serve="python -m SimpleHTTPServer"
 
 # used for auto completion
 # ref: http://michaelheap.com/enable-zsh-completion-for-hub/

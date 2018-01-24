@@ -1,7 +1,7 @@
 [user]
-    name = joest
-    email = chaojiong.zheng@gmail.com
-	signingkey = 96E70E64
+	name = joest
+	email = chaojiong.zheng@gmail.com
+    signingkey = 96E70E64
 [alias]
     co = checkout
     br = branch
@@ -15,9 +15,15 @@
     fh = flow hotfix
     ld = log -p
     ldn = show --pretty="format:" --name-only
+    lg = log --graph --all --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)%an%Creset %C(yellow)%d%Creset'
     lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    # sweep = !git branch --merged master | grep -v 'master$' | xargs git branch -d && git remote prune origin
+    sweep = !git branch --merged master | grep -v 'master$' | xargs git branch -d
+    serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 [core]
     excludesfile = /Users/joest/.gitignore_global
+    editor = /usr/local/bin/vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [push]
     default = matching
 [credential]
@@ -27,6 +33,13 @@
 [rerere]
     enabled = 1
 [commit]
-	gpgsign = true
+    gpgsign = true
 [https]
-	proxy = socks5://127.0.0.1:1080
+    proxy = socks5://127.0.0.1:1234
+[branch "master"]
+    mergeoptions = --no-edit
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
