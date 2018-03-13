@@ -3,13 +3,25 @@ export ZSH=$HOME/.dotfiles/oh-my-zsh
 
 ZSH_THEME="joest-timestamp"
 
+# ssh agent identities
+zstyle :omz:plugins:ssh-agent identities id_rsa_github id_rsa
+
 plugins=(
     git
     git-extras
     gitignore
     git-flow
+
     autojump
     mvn
+    svn
+    brew
+    web-search
+
+    command-not-found
+    ssh-agent
+    tmux
+    zsh_reload
 )
 
 export PATH=$HOME/.dotfiles/bin:/usr/local/bin:/usr/local/sbin/:$PATH
@@ -19,6 +31,7 @@ LOCAL_PIP=$HOME/Library/Python/2.7/bin
 if [ -d $LOCAL_PIP ]; then
     export PATH=$HOME/Library/Python/2.7/bin:$PATH
 fi
+
 export PATH="/usr/local/opt/gpg-agent/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -42,8 +55,8 @@ export M2_HOME="/usr/local/Cellar/maven/3.5.0/libexec"
 ##########################
 
 # virtualwrapper
-    export WORKON_HOME=~/Envs
-    source /usr/local/bin/virtualenvwrapper.sh
+export WORKON_HOME=~/Envs
+source /usr/local/bin/virtualenvwrapper.sh
 
 ##########################
 #       alias            #
@@ -64,27 +77,6 @@ fpath=(~/.dotfiles/auto-completion $fpath)
 autoload -U compinit && compinit -u
 
 ##########################
-#       ssh agent        #
-##########################
-
-SSH_ENV="$HOME/.ssh/agent_info"
-
-if ! [ -n "$SSH_AGENT_PID" ]; then
-    if [ -f "$SSH_ENV" ]; then
-        . "$SSH_ENV" > /dev/null
-    fi
-    [[ -n "$SSH_AGENT_PID" ]] && ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent > /dev/null
-    ret=$?
-    if ! [ $ret -eq 0 ]; then
-        echo "Initializing new SSH agent..."
-       # spawn ssh-agent
-       ssh-agent > "$SSH_ENV"
-       chmod 600 "$SSH_ENV"
-       . "$SSH_ENV" > /dev/null
-   fi
-fi
-
-##########################
 #       gpg agent        #
 ##########################
 
@@ -99,10 +91,39 @@ fi
 #       functions        #
 ##########################
 ssh-copy-id (){
-    ssh $1 "mkdir -p .ssh"
-    ssh $1 "echo `cat .ssh/id_rsa.pub` >> ~/.ssh/authorized_keys"
-    ssh $1 "chmod 700 .ssh; chmod 640 .ssh/authorized_keys"
+    ssh $1 "mkdir -p .ssh; echo `cat .ssh/id_rsa_alibaba.pub` >> ~/.ssh/authorized_keys; chmod 700 .ssh; chmod 640 .ssh/authorized_keys"
+    ssh $1
 }
+
+prompt_svn() {
+    local rev branch
+    if in_svn; then
+        rev=$(svn_get_rev_nr)
+        branch=$(svn_get_branch_name)
+        if [ `svn_dirty_choose_pwd 1 0` -eq 1 ]; then
+            prompt_segment yellow black
+            echo -n "$rev@$branch"
+            echo -n "±"
+        else
+            prompt_segment green black
+            echo -n "$rev@$branch"
+        fi
+    fi
+}
+
+# ==== go related ====
 export GOPATH=$HOME/gocode
+# export GOROOT=$HOME/go-custom
+export PATH=$GOPATH/bin:$PATH
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+#alias for cnpm
+alias cnpm="npm --registry=https://registry.npm.taobao.org \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=https://npm.taobao.org/dist \
+  --userconfig=$HOME/.cnpmrc"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
