@@ -1,41 +1,40 @@
 # Path to your oh-my-zsh installation.
-export ZSH=$HOME/.dotfiles/oh-my-zsh
-
+#########################
+#     zsh config        #
+#########################
+# zmodload zsh/zprof
+DISABLE_AUTO_UPDATE=false
 ZSH_THEME="joest-timestamp"
 
-# ssh agent identities
-zstyle :omz:plugins:ssh-agent identities id_rsa_github id_rsa
+# Don't reload everytime shell startup
+# autoload -Uz compinit
+# if [ $(date +'%j') != $(stat -f '%Sm' -t '%j' ~/.zcompdump) ]; then
+#   compinit
+# else
+#   compinit -C
+# fi
 
 plugins=(
     git
-    git-extras
     gitignore
-    git-flow
-
     autojump
-    mvn
-    svn
-    brew
-    web-search
-
-    command-not-found
-    ssh-agent
-    tmux
-    zsh_reload
+    # zsh_reload
+    # command-not-found
 )
+# ssh agent identities. pre: should enable ssh-agent plugin
+# zstyle :omz:plugins:ssh-agent identities id_rsa_github id_rsa
 
+######################
+#   path related     #
+######################
 export PATH=$HOME/.dotfiles/bin:/usr/local/bin:/usr/local/sbin/:$PATH
 
-# pip install --user
-LOCAL_PIP=$HOME/Library/Python/2.7/bin
-if [ -d $LOCAL_PIP ]; then
-    export PATH=$HOME/Library/Python/2.7/bin:$PATH
-fi
+# odps
+export PATH=~/.odps_clt/bin:$PATH
 
-export PATH="/usr/local/opt/gpg-agent/bin:$PATH"
-
+export ZSH=$HOME/.dotfiles/oh-my-zsh
 source $ZSH/oh-my-zsh.sh
-source /usr/local/Cellar/zsh-syntax-highlighting/0.5.0/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSH/repo/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ########################
 #     system env       #
@@ -46,17 +45,41 @@ export LC_ALL="en_US.UTF-8"
 export LC_CTYPE="en_US.UTF-8"
 
 export HOMEBREW_GITHUB_API_TOKEN='ec63ccbf280c52ce571e2766bf0ce4ec96478ecb'
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home"
-export M2_HOME="/usr/local/Cellar/maven/3.5.0/libexec"
 
 
 ##########################
 #     software env       #
 ##########################
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home"
+export M2_HOME="/usr/local/Cellar/maven/3.5.0/libexec"
 
 # virtualwrapper
 export WORKON_HOME=~/Envs
-source /usr/local/bin/virtualenvwrapper.sh
+virtualwrapper() {
+    source /usr/local/bin/virtualenvwrapper.sh
+}
+
+# pip install --user
+LOCAL_PIP=$HOME/Library/Python/2.7/bin
+if [ -d $LOCAL_PIP ]; then
+    export PATH=$HOME/Library/Python/2.7/bin:$PATH
+fi
+
+# ==== go related ====
+export GOPATH=$HOME/gocode
+# export GOROOT=$HOME/go-custom
+export PATH=$GOPATH/bin:$PATH
+
+#alias for cnpm
+alias cnpm="npm --registry=https://registry.npm.taobao.org \
+  --cache=$HOME/.npm/.cache/cnpm \
+  --disturl=https://npm.taobao.org/dist \
+  --userconfig=$HOME/.cnpmrc"
+
+# use https://github.com/lukechilds/zsh-nvm lazy load
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 ##########################
 #       alias            #
@@ -70,15 +93,18 @@ alias vi=vim
 alias ip="curl ipinfo.io/ip"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias serve="python -m SimpleHTTPServer"
+alias tb="ssh tb"
 
-# used for auto completion
+# Used for auto completion, now only support hub, so commet it
 # ref: http://michaelheap.com/enable-zsh-completion-for-hub/
-fpath=(~/.dotfiles/auto-completion $fpath)
-autoload -U compinit && compinit -u
+# fpath=(~/.dotfiles/auto-completion $fpath)
+# autoload -U compinit && compinit -u
 
 ##########################
 #       gpg agent        #
 ##########################
+
+export PATH="/usr/local/opt/gpg-agent/bin:$PATH"
 
 if [ -f ~/.gnupg/.gpg-agent-info ] && [ -n "$(pgrep gpg-agent)" ]; then
     source ~/.gnupg/.gpg-agent-info
@@ -90,40 +116,25 @@ fi
 ##########################
 #       functions        #
 ##########################
+DEFAULT_RSA_FILE="id_rsa_alibaba.pub"
 ssh-copy-id (){
-    ssh $1 "mkdir -p .ssh; echo `cat .ssh/id_rsa_alibaba.pub` >> ~/.ssh/authorized_keys; chmod 700 .ssh; chmod 640 .ssh/authorized_keys"
+    ssh $1 "mkdir -p .ssh; echo `cat .ssh/$DEFAULT_RSA_FILE` >> ~/.ssh/authorized_keys; chmod 700 .ssh; chmod 640 .ssh/authorized_keys"
     ssh $1
 }
 
-prompt_svn() {
-    local rev branch
-    if in_svn; then
-        rev=$(svn_get_rev_nr)
-        branch=$(svn_get_branch_name)
-        if [ `svn_dirty_choose_pwd 1 0` -eq 1 ]; then
-            prompt_segment yellow black
-            echo -n "$rev@$branch"
-            echo -n "±"
-        else
-            prompt_segment green black
-            echo -n "$rev@$branch"
-        fi
-    fi
-}
-
-# ==== go related ====
-export GOPATH=$HOME/gocode
-# export GOROOT=$HOME/go-custom
-export PATH=$GOPATH/bin:$PATH
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-#alias for cnpm
-alias cnpm="npm --registry=https://registry.npm.taobao.org \
-  --cache=$HOME/.npm/.cache/cnpm \
-  --disturl=https://npm.taobao.org/dist \
-  --userconfig=$HOME/.cnpmrc"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# same as ntfy done sleep 10
+function countdown(){
+    local now=$(date +%s)
+    local end=$((now + $1))
+    while (( now < end )); do
+        printf "%s\r" "$(date -u -j -f %s $((end - now)) +%T)"
+        sleep 0.25
+        now=$(date +%s)
+    done
+    ntfy 2>&1 > /dev/null
+    test $? == 0 && ntfy send "time countdown: $1"
+    echo
+}
+# zprof

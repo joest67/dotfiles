@@ -25,7 +25,6 @@ brew install   \
       byobu    \
       autojump \
       git-flow \
-      zsh-syntax-highlighting \
       fzf \
       tig \
       reattach-to-user-namespace

@@ -7,6 +7,7 @@
 rc_files=(
     zshrc
     gitconfig
+    gitignore_global
     tmux.conf
 )
 
