@@ -1,9 +1,0 @@
-source $BYOBU_PREFIX/share/byobu/keybindings/common
-source $BYOBU_PREFIX/share/byobu/keybindings/f-keys.screen.disable
-
-escape "^Aa"
-register x "^A"
-bindkey "^A" eval "process x"
-
-
-
