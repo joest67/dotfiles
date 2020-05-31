@@ -6,6 +6,9 @@ source $HOME/.dotfiles/antigen.zsh
 antigen init $HOME/.dotfiles/conf/antigenrc
 export ANTIGEN_COMPDUMPFILE=~/.antigen/.zcompdump
 
+# TODO change to auto source
+source $HOME/.dotfiles/fzf.zsh
+
 # ssh agent identities. pre: should enable ssh-agent plugin
 # zstyle :omz:plugins:ssh-agent identities id_rsa_github id_rsa
 
@@ -16,10 +19,6 @@ export PATH=$HOME/.dotfiles/bin:/usr/local/bin:/usr/local/sbin/:$PATH
 
 # odps
 export PATH=~/.odps_clt/bin:$PATH
-
-# export ZSH=$HOME/.dotfiles/oh-my-zsh
-# source $ZSH/oh-my-zsh.sh
-# source $ZSH/repo/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ########################
 #     system env       #
@@ -55,16 +54,23 @@ export GOPATH=$HOME/gocode
 # export GOROOT=$HOME/go-custom
 export PATH=$GOPATH/bin:$PATH
 
+# https://github.com/bigH/git-fuzzy
+export PATH=$HOME/.dotfiles/git-fuzzy/bin:$PATH
+
 #alias for cnpm
 alias cnpm="npm --registry=https://registry.npm.taobao.org \
   --cache=$HOME/.npm/.cache/cnpm \
   --disturl=https://npm.taobao.org/dist \
   --userconfig=$HOME/.cnpmrc"
 
-# use https://github.com/lukechilds/zsh-nvm lazy load
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#compdef toggl
+_toggl() {
+  eval $(env COMMANDLINE="${words[1,$CURRENT]}" _TOGGL_COMPLETE=complete-zsh  toggl)
+}
+if [[ "$(basename -- ${(%):-%x})" != "_toggl" ]]; then
+  autoload -U compinit && compinit
+  compdef _toggl toggl
+fi
 
 ##########################
 #       alias            #
@@ -79,11 +85,7 @@ alias ip="curl ipinfo.io/ip"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias serve="python -m SimpleHTTPServer"
 alias tb="ssh tb"
-
-# Used for auto completion, now only support hub, so commet it
-# ref: http://michaelheap.com/enable-zsh-completion-for-hub/
-# fpath=(~/.dotfiles/auto-completion $fpath)
-# autoload -U compinit && compinit -u
+alias gs="git log -p -G "
 
 ##########################
 #       gpg agent        #
@@ -107,8 +109,6 @@ ssh-copy-id (){
     ssh $1
 }
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
 # same as ntfy done sleep 10
 function countdown(){
     local now=$(date +%s)
@@ -118,7 +118,18 @@ function countdown(){
         sleep 0.25
         now=$(date +%s)
     done
-    ntfy 2>&1 > /dev/null
-    test $? == 0 && ntfy send "time countdown: $1"
-    echo
+    ntfy send "time countdown: $2"
 }
+
+##########################
+#       network          #
+##########################
+function setProxy() {
+    export https_proxy=http://127.0.0.1:6152;
+    export http_proxy=http://127.0.0.1:6152;
+    export all_proxy=socks5://127.0.0.1:6153;
+}
+function unsetProxy() {
+    unset all_proxy http_proxy https_proxy
+}
+# setProxy

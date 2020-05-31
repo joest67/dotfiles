@@ -1,4 +1,5 @@
 antigen use oh-my-zsh
+
 antigen bundle git
 antigen bundle gitignore
 antigen bundle autojump
@@ -7,10 +8,10 @@ antigen bundle autojump
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 # Fish-like auto suggestions
-# antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-autosuggestions
 # Extra zsh completions
-# antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-completions
 
-# antigen theme robbyrussell
+antigen theme robbyrussell
 
 antigen apply
