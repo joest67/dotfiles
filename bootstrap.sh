@@ -18,20 +18,21 @@ if [ "$(uname)" = "Darwin" ]; then
     fi
 
 
+echo "install mac bundles"
 brew install   \
       vim      \
       pyenv    \
       zsh      \
-      byobu    \
       autojump \
-      git-flow \
       fzf \
       tig \
-      reattach-to-user-namespace
+      reattach-to-user-namespace \
+      fzf
 
 fi
 
 if which apt-get > /dev/null; then
+    echo "install Linux bunldes"
     sudo apt-get autojump zsh
 fi
 
@@ -44,6 +45,7 @@ fi
 sudo pip install -U virtualenvwrapper
 
 
+# use zsh
 if [ "$(zsh)" != "/bin/bash" ]; then
     chsh /bin/zsh
 fi
