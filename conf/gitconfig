@@ -21,7 +21,7 @@
     sweep = !git branch --merged master | grep -v 'master$' | xargs git branch -d
     serve = !git daemon --reuseaddr --verbose  --base-path=. --export-all ./.git
 [core]
-    excludesfile = /Users/joest/.gitignore_global
+	excludesfile = /Users/joest/.gitignore_global
     editor = /usr/local/bin/vim
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [push]
@@ -43,3 +43,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
